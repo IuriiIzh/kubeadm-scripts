@@ -75,7 +75,7 @@ local_ip="$(ip --json addr show $INTERFACE | jq -r '.[0].addr_info[] | select(.f
 #sudo cat > /etc/default/kubelet << EOF
 #KUBELET_EXTRA_ARGS=--node-ip=$local_ip
 #EOF
-sudo tee -a /etc/default/kubelet >/dev/null <<'EOF'
+sudo tee /etc/default/kubelet >/dev/null <<'EOF'
 KUBELET_EXTRA_ARGS=--node-ip=$local_ip
 EOF
 
