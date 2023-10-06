@@ -4,7 +4,7 @@
 
 set -exo pipefail
 
-if [[ $1 !== "master" ]] && [[ $1 !== "worker" ]] ;
+if [[ $1 -ne "master" ]] && [[ $1 -ne "worker" ]] ;
   then
   echo "Set up Kubernetes master and worker nodes"
   echo "usage:"
