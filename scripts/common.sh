@@ -72,6 +72,6 @@ sudo apt-get update -y
 sudo apt-get install -y jq
 
 local_ip="$(ip --json addr show $INTERFACE | jq -r '.[0].addr_info[] | select(.family == "inet") | .local')"
-cat > /etc/default/kubelet << EOF
+sudo cat > /etc/default/kubelet << EOF
 KUBELET_EXTRA_ARGS=--node-ip=$local_ip
 EOF
