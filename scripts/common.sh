@@ -8,7 +8,7 @@ if [[ $1 != master ]] && [[ $1 != worker ]] ;
   then
   echo "Set up Kubernetes master and worker nodes"
   echo "usage:"
-  echo "\t $0" 'master or worker node'
+  echo " $0" 'master' ' or ' " $0" 'worker'
   exit
 fi
 
