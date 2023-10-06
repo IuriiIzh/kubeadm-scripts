@@ -89,10 +89,10 @@ sudo tee /etc/default/kubelet >/dev/null <<EOF
 KUBELET_EXTRA_ARGS=--node-ip=$local_ip
 EOF
 
-if [ $1 = "master" ] ;
+if [[ $1 = master ]] ;
   then
   . ./master.sh
-  else
+else
     echo "worker node will be added to cluster"
 fi
 
