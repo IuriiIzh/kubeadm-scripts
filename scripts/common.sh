@@ -2,7 +2,7 @@
 #
 # Common setup for all servers (Control Plane and Nodes)
 
-set -exo pipefail
+set -eo pipefail
 
 if [[ $1 != master ]] && [[ $1 != worker ]] ;
   then
