@@ -8,7 +8,7 @@ if [[ $1 != master ]] && [[ $1 != worker ]] ;
   then
   echo "Set up Kubernetes master and worker nodes"
   echo "usage:"
-  echo " $0" 'master' ' or ' " $0" 'worker IP_MASTER_VM TOKEN'
+  echo " $0" 'master' ' or ' " $0" 'worker IP_MASTER_VM TOKEN HASH'
   exit
 fi
 
@@ -93,7 +93,8 @@ if [[ $1 = master ]] ;
   then
   . ./master.sh
 else
-    echo "worker node will be added to cluster"
+    sudo kubeadm join $2 --token $3 --discovery-token-ca-cert-hash $4
+    echo "Worker node was added to cluster successfully"
 fi
 
 
