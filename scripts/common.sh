@@ -4,6 +4,16 @@
 
 set -euxo pipefail
 
+if [ $1 != "master" ] || [ $1 != "worker" ] ;
+  then
+  echo "Set up Kubernetes master and worker nodes"
+  echo "usage:"
+  echo "\t $0" 'master or worker node'
+  exit
+fi
+
+echo "You are configuring $1 node"
+
 # Variable Declaration
 
 KUBERNETES_VERSION="1.28.1-00"
@@ -78,4 +88,12 @@ local_ip="$(ip --json addr show $INTERFACE | jq -r '.[0].addr_info[] | select(.f
 sudo tee /etc/default/kubelet >/dev/null <<EOF
 KUBELET_EXTRA_ARGS=--node-ip=$local_ip
 EOF
+
+if [ $1 = "master" ] ;
+  then
+  . ./master.sh
+  else
+    echo "worker node will be added to cluster"
+fi
+
 
