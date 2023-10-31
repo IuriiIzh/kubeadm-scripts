@@ -9,6 +9,9 @@ set -euo pipefail
 PUBLIC_IP_ACCESS="false"
 NODENAME=$(hostname -s)
 POD_CIDR=192.168.0.0/16
+POD_CIDR_IPV6=2a02:908:4c16::/56
+
+
 
 # Pull required images
 
@@ -19,7 +22,7 @@ sudo kubeadm config images pull
 if [[ "$PUBLIC_IP_ACCESS" == "false" ]]; then
     
     MASTER_PRIVATE_IP=$(ip addr show $INTERFACE | awk '/inet / {print $2}' | cut -d/ -f1)
-    sudo kubeadm init --apiserver-advertise-address="$MASTER_PRIVATE_IP" --apiserver-cert-extra-sans="$MASTER_PRIVATE_IP" --pod-network-cidr="$POD_CIDR" --node-name "$NODENAME" --ignore-preflight-errors Swap
+    sudo kubeadm init --apiserver-advertise-address="$MASTER_PRIVATE_IP" --apiserver-cert-extra-sans="$MASTER_PRIVATE_IP" --pod-network-cidr="$POD_CIDR","$POD_CIDR_IPV6" --node-name "$NODENAME" --ignore-preflight-errors Swap
 
 elif [[ "$PUBLIC_IP_ACCESS" == "true" ]]; then
 
