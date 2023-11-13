@@ -10,5 +10,6 @@ set -euo pipefail
 # Install metrik server
 kubectl apply -f https://raw.githubusercontent.com/techiescamp/kubeadm-scripts/main/manifests/metrics-server.yaml
 
+kubectl apply -f https://raw.githubusercontent.com/argoproj/argo-cd/v2.9.0/manifests/namespace-install.yaml
 
 
