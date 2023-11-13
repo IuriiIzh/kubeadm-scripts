@@ -11,6 +11,6 @@ set -euo pipefail
 kubectl apply -f https://raw.githubusercontent.com/techiescamp/kubeadm-scripts/main/manifests/metrics-server.yaml
 
 kubectl create namespace argocd
-kubectl apply -f https://raw.githubusercontent.com/argoproj/argo-cd/v2.9.0/manifests/namespace-install.yaml -n argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/core-install.yaml
 
 
