@@ -15,6 +15,6 @@ kubeadm token create --print-join-command
 ~~~
 Then login into other VMs und run
 ~~~shell
-./common.sh worker IP_MASTER_VM TOKEN HASH
+./common.sh worker IP_MASTER_VM:PORT TOKEN HASH
 ~~~
 
