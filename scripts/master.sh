@@ -3,6 +3,7 @@
 # Setup for Control Plane (Master) servers
 
 set -euo pipefail
+echo "Configuration for master node starts:"
 
 # If you need public access to API server using the servers Public IP adress, change PUBLIC_IP_ACCESS to true.
 
