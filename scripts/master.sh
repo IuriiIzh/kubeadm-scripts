@@ -15,6 +15,10 @@ SVC_CIDR=10.86.0.0/16
 
 
 # Configure firewall
+if [$(sudo firewall-cmd --list-all-zones|grep 000-kubernetes) eq 0] ;
+  then
+  sudo firewall-cmd --permanent --new-zone 000-kubernetes
+fi
 sudo firewall-cmd --permanent --new-zone 000-kubernetes
 sudo firewall-cmd --permanent --set-target=ACCEPT --zone=000-kubernetes
 sudo firewall-cmd --permanent --add-masquerade --zone=000-kubernetes
