@@ -8,9 +8,17 @@ set -euo pipefail
 
 PUBLIC_IP_ACCESS="false"
 NODENAME=$(hostname -s)
-POD_CIDR=192.168.0.0/16
-POD_CIDR_IPV6=2a02:908:4c16::/56
+POD_CIDR=10.85.0.0/16
+SVC_CIDR=10.86.0.0/16
 
+
+
+# Configure firewall
+sudo firewall-cmd --permanent --new-zone 000-kubernetes
+sudo firewall-cmd --permanent --set-target=ACCEPT --zone=000-kubernetes
+sudo firewall-cmd --permanent --add-masquerade --zone=000-kubernetes
+sudo firewall-cmd --permanent --zone=000-kubernetes --add-source=192.168.0.0/16
+sudo firewall-cmd --permanent --zone=000-kubernetes --add-source="$POD_CIDR" --add-source="$SVC_CIDR"
 
 
 # Pull required images
@@ -22,7 +30,7 @@ sudo kubeadm config images pull
 if [[ "$PUBLIC_IP_ACCESS" == "false" ]]; then
     
     MASTER_PRIVATE_IP=$(ip addr show $INTERFACE | awk '/inet / {print $2}' | cut -d/ -f1)
-    sudo kubeadm init --apiserver-advertise-address="$MASTER_PRIVATE_IP" --apiserver-cert-extra-sans="$MASTER_PRIVATE_IP" --pod-network-cidr="$POD_CIDR","$POD_CIDR_IPV6" --node-name "$NODENAME" --ignore-preflight-errors Swap
+    sudo kubeadm init --apiserver-advertise-address="$MASTER_PRIVATE_IP" --apiserver-cert-extra-sans="$MASTER_PRIVATE_IP" --pod-network-cidr="$POD_CIDR" --service-cidr="$SVC_CIDR" --node-name "$NODENAME" --ignore-preflight-errors Swap
 
 elif [[ "$PUBLIC_IP_ACCESS" == "true" ]]; then
 
