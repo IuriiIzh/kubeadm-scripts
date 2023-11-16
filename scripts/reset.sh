@@ -16,6 +16,7 @@ sudo rm -rf /opt/cni/
 
 sudo crictl ps -q | xargs -n 1 crictl stop
 sudo crictl ps -q | xargs -n 1 crictl rm
+sudo apt-get remove cri-o cri-o-runc -y
 
 sudo firewall-cmd --permanent --delete-zone 000-kubernetes
 
