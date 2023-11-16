@@ -73,7 +73,7 @@ echo "CRI runtime installed susccessfully"
 # Install kubelet, kubectl and Kubeadm
 
 sudo apt-get update -y
-sudo apt-get install -y apt-transport-https ca-certificates curl firewall-cmd
+sudo apt-get install -y apt-transport-https ca-certificates curl firewalld
 sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://dl.k8s.io/apt/doc/apt-key.gpg
 
 echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
