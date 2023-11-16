@@ -12,3 +12,5 @@ sudo rm -rf /opt/kubernetes/
 sudo rm -rf /etc/cni/
 sudo rm -rf /opt/cni/
 sudo firewall-cmd --permanent --delete-zone 000-kubernetes
+
+sudo systemctl reboot
