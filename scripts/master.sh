@@ -15,7 +15,7 @@ SVC_CIDR=10.86.0.0/16
 
 
 # Configure firewall
-if [[ $(sudo firewall-cmd --list-all-zones| grep -q 000-kubernetes) eq 0 ]]; 
+if [[ $(sudo firewall-cmd --list-all-zones| grep -q 000-kubernetes) -eq 0 ]]; 
   then
     echo "firewall zone already created"
   else
