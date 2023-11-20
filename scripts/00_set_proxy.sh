@@ -10,11 +10,11 @@ PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/u
 http_proxy="http://192.168.0.218:8080/"
 https_proxy="http://192.168.0.218:8080/"
 ftp_proxy="http://192.168.0.218:8080/"
-no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com,192.{0..255}.{0..255}.{0..255},10.{0..255}.{0..255}.{0..255}"
+no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com,192.168.0.0/16,10.85.0.0/16,10.86.0.0/16"
 HTTP_PROXY="http://192.168.0.218:8080/"
 HTTPS_PROXY="http://192.168.0.218:8080/"
 FTP_PROXY="http://192.168.0.218:8080/"
-NO_PROXY="localhost,127.0.0.1,localaddress,.localdomain.com,192.{0..255}.{0..255}.{0..255},10.{0..255}.{0..255}.{0..255}"
+NO_PROXY="localhost,127.0.0.1,localaddress,.localdomain.com,192.168.0.0/16,10.85.0.0/16,10.86.0.0/16"
 EOF
 
 cat <<EOF | sudo tee /etc/apt/apt.conf.d/95proxies
