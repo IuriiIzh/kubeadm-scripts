@@ -5,27 +5,6 @@
 set -euo pipefail
 echo "Configuration for master node starts:"
 
-# If you need public access to API server using the servers Public IP adress, change PUBLIC_IP_ACCESS to true.
-
-PUBLIC_IP_ACCESS="false"
-NODENAME=$(hostname -s)
-POD_CIDR=10.85.0.0/16
-SVC_CIDR=10.86.0.0/16
-
-
-
-# Configure firewall
-if [[ $(sudo firewall-cmd --list-all-zones| grep -q 000-kubernetes) -eq 0 ]]; 
-  then
-    echo "firewall zone already created"
-  else
-    sudo firewall-cmd --permanent --new-zone 000-kubernetes
-fi
-sudo firewall-cmd --permanent --set-target=ACCEPT --zone=000-kubernetes
-sudo firewall-cmd --permanent --add-masquerade --zone=000-kubernetes
-sudo firewall-cmd --permanent --zone=000-kubernetes --add-source=192.168.0.0/16
-sudo firewall-cmd --permanent --zone=000-kubernetes --add-source="$POD_CIDR" --add-source="$SVC_CIDR"
-sudo firewall-cmd --reload
 
 # Pull required images
 

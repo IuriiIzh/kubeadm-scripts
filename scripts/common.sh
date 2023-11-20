@@ -17,6 +17,10 @@ echo "You are configuring $1 node"
 # Variable Declaration
 
 KUBERNETES_VERSION="1.28.1-00"
+PUBLIC_IP_ACCESS="false"
+NODENAME=$(hostname -s)
+POD_CIDR=10.85.0.0/16
+SVC_CIDR=10.86.0.0/16
 
 # disable swap
 sudo swapoff -a
@@ -81,6 +85,23 @@ sudo apt-get update -y
 sudo apt-get install --allow-downgrades -y kubelet="$KUBERNETES_VERSION" kubectl="$KUBERNETES_VERSION" kubeadm="$KUBERNETES_VERSION"
 sudo apt-get update -y
 sudo apt-get install -y jq
+
+
+
+
+# Configure firewall
+if [[ $(sudo firewall-cmd --list-all-zones| grep -q 000-kubernetes) -eq 0 ]]; 
+  then
+    echo "firewall zone already created"
+  else
+    sudo firewall-cmd --permanent --new-zone 000-kubernetes
+fi
+sudo firewall-cmd --permanent --set-target=ACCEPT --zone=000-kubernetes
+sudo firewall-cmd --permanent --add-masquerade --zone=000-kubernetes
+sudo firewall-cmd --permanent --zone=000-kubernetes --add-source=192.168.0.0/16
+sudo firewall-cmd --permanent --zone=000-kubernetes --add-source="$POD_CIDR" --add-source="$SVC_CIDR"
+sudo firewall-cmd --reload
+
 
 local_ip="$(ip --json addr show $INTERFACE | jq -r '.[0].addr_info[] | select(.family == "inet") | .local')"
 #sudo cat > /etc/default/kubelet << EOF
