@@ -6,6 +6,7 @@ set -euo pipefail
 echo "Proxy Configurations will be added to /etc/environment and /etc/apt/apt.conf.d/95proxies files"
 
 cat <<EOF | sudo tee /etc/environment
+PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
 http_proxy="http://192.168.0.218:8080/"
 https_proxy="http://192.168.0.218:8080/"
 ftp_proxy="http://192.168.0.218:8080/"
